@@ -259,8 +259,19 @@ const renderCompanies = (companies, container) => {
   });
 };
 
-renderCompanies(portfolioCompanies.filter(company => !company.exited), portfolioGrid);
-renderCompanies(portfolioCompanies.filter(company => company.exited), exitsGrid);
+renderCompanies(
+  portfolioCompanies
+    .filter(company => !company.exited)
+    .sort((a, b) => a.name.localeCompare(b.name)),
+  portfolioGrid
+);
+
+renderCompanies(
+  portfolioCompanies
+    .filter(company => company.exited)
+    .sort((a, b) => a.name.localeCompare(b.name)),
+  exitsGrid
+);
 
 const teamGrid = document.querySelector("#team-grid");
 teamMembers.forEach(member => { const article = document.createElement("article"); article.className = "team-card reveal"; article.innerHTML = `<img src="${member.photo}" alt="Portrait of ${member.name}" loading="lazy"><div class="team-info"><h3>${member.name}</h3><p>${member.role}</p>${member.linkedin ? `<a href="${member.linkedin}" target="_blank" rel="noopener">LinkedIn ↗</a>` : ""}</div>`; teamGrid.append(article) });
